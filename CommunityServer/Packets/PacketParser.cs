@@ -1,17 +1,16 @@
-﻿using BaseLib;
-using BaseLib.Packets;
-using GameServer.Network;
+﻿using BaseLib.Packets;
+using CommunityServer.Network;
 
-namespace GameServer.Packets
+namespace CommunityServer.Packets
 {
     public class PacketParser
     {
         Packet pkt;
-        GameClient client;
+        CommClient client;
 
         public PacketParser() {}
 
-        public void CheckPacket(byte[] data, GameClient client)
+        public void CheckPacket(byte[] data, CommClient client)
         {
             this.pkt = new Packet();
             pkt.SetData(data);

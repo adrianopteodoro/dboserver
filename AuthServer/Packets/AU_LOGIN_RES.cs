@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BaseLib;
-using BaseLib.Packets;
-using BaseLib.Structs;
+﻿using BaseLib.Packets;
 using AuthServer.Configs;
 
 namespace AuthServer.Packets
@@ -13,7 +7,7 @@ namespace AuthServer.Packets
     {
         public AU_LOGIN_RES()
         {
-            this.Opcode = 1002;
+            this.Opcode = (ushort)PacketOpcodes.AU_LOGIN_RES;
             this.ResultCode = 0;
             this.UserID = "";
             this.AuthKey = new byte[16];

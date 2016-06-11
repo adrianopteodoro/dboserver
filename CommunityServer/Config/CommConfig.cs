@@ -1,15 +1,15 @@
 ﻿using BaseLib.Configs;
 
-namespace GameServer.Configs
+namespace CommunityServer.Configs
 {
-    public sealed class GameConfig : Config
+    public sealed class CommConfig : Config
     {
         public string BindIP { get { return this.GetString("BindIP", "0.0.0.0"); } set { this.Set("BindIP", value); } }
-        public int Port { get { return this.GetInt("Port", 7001); } set { this.Set("Port", value); } }
+        public int Port { get { return this.GetInt("Port", 50700); } set { this.Set("Port", value); } }
 
-        private static readonly GameConfig _instance = new GameConfig();
-        public static GameConfig Instance { get { return _instance; } }
-        private GameConfig() : base("GameServer") { }
+        private static readonly CommConfig _instance = new CommConfig();
+        public static CommConfig Instance { get { return _instance; } }
+        private CommConfig() : base("CommunityServer") { }
     }
 
     public sealed class UserDataDBConfig : Config

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BaseLib;
+﻿using System.Collections.Generic;
 using BaseLib.Database;
-using BaseLib.Entities;
-using CharServer.Network;
 using CharServer.Configs;
 
 namespace CharServer.Database

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BaseLib;
-using BaseLib.Packets;
-using BaseLib.Structs;
+﻿using BaseLib.Packets;
 
 namespace CharServer.Packets
 {

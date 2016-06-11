@@ -1,27 +1,16 @@
-/*
- * Criado por SharpDevelop.
- * Usuário: Adriano
- * Data: 1/12/2011
- * Hora: 18:43
- * 
- * Para alterar este modelo use Ferramentas | Opções | Codificação | Editar Cabeçalhos Padrão.
- */
-
-using System;
 using System.Text;
 using BaseLib;
 using BaseLib.Network;
 using BaseLib.Packets;
 using AuthServer.Packets;
-using BaseLib.Helpers;
 using AuthServer.Database;
 
 namespace AuthServer.Network
 {
-	/// <summary>
-	/// Description of AuthClient.
-	/// </summary>
-	public class AuthClient : IUser
+    /// <summary>
+    /// Description of AuthClient.
+    /// </summary>
+    public class AuthClient : IUser
 	{
 		/// <summary>
         /// TCP connection.
@@ -67,7 +56,7 @@ namespace AuthServer.Network
 
             UA_LOGIN_REQ inPkt = new UA_LOGIN_REQ();
             inPkt.SetData(data);
-            SysCons.WriteLine("UA_LOGIN_REQ {0} CodePage({1}) {2}.{3}", inPkt.UserID, inPkt.CodePage, inPkt.MajorVer, inPkt.MinorVer);
+            SysCons.LogInfo("UA_LOGIN_REQ {0} CodePage({1}) {2}.{3}", inPkt.UserID, inPkt.CodePage, inPkt.MajorVer, inPkt.MinorVer);
             this.Username = inPkt.UserID;
             this.Password = inPkt.UserPW;
             this.AccountID = (uint)AuthDB.GetAccountID(this.Username);

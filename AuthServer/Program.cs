@@ -1,24 +1,12 @@
-/*
- * Criado por SharpDevelop.
- * Usuário: Adriano
- * Data: 30/11/2011
- * Hora: 20:14
- * 
- * Para alterar este modelo use Ferramentas | Opções | Codificação | Editar Cabeçalhos Padrão.
- */
 using System;
 using System.Globalization;
-using System.Reflection;
 using System.Threading;
 using BaseLib;
-using BaseLib.Network;
-using BaseLib.Packets;
-using BaseLib.Helpers;
 using AuthServer.Network;
 
 namespace AuthServer
 {
-	class Program
+    class Program
 	{
         public static AuthServ AuthServ;
         public static Thread AuthServThread;
@@ -41,9 +29,9 @@ namespace AuthServer
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.IsTerminating)
-                SysCons.WriteLine("Terminating because of unhandled exception.");
+                SysCons.LogError("Terminating because of unhandled exception.");
             else
-                SysCons.WriteLine("Caught unhandled exception.");
+                SysCons.LogError("Caught unhandled exception.");
             Console.ReadLine();
         }
 		
@@ -62,7 +50,7 @@ namespace AuthServer
         {
             if (AuthServ == null) return false;
 
-            SysCons.WriteLine("Stopping AuthServer..");
+            SysCons.LogInfo("Stopping AuthServer..");
             AuthServ.Shutdown();
             AuthServThread.Abort();
             AuthServ = null;
@@ -74,7 +62,7 @@ namespace AuthServer
         {
             if (AuthServ != null)
             {
-                SysCons.WriteLine("Shutting down AuthServer..");
+                SysCons.LogInfo("Shutting down AuthServer..");
                 AuthServ.Shutdown();
             }
             Environment.Exit(0);

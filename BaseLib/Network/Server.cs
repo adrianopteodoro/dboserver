@@ -76,7 +76,7 @@ namespace BaseLib.Network
             }
             catch (SocketException)
             {
-                SysCons.WriteLine(string.Format("{0} can't bind on {1}, server shutting down..", this.GetType().Name, bindIP));
+                SysCons.LogError(string.Format("{0} can't bind on {1}, server shutting down..", this.GetType().Name, bindIP));
                 this.Shutdown();
                 return false;
             }
@@ -109,7 +109,7 @@ namespace BaseLib.Network
             catch (NullReferenceException) { } // we recive this after issuing server-shutdown, just ignore it.
             catch (Exception e)
             {
-                SysCons.WriteLine("AcceptCallback: {0}", e);
+                SysCons.LogError("AcceptCallback: {0}", e);
             }
         }
 		
@@ -137,7 +137,7 @@ namespace BaseLib.Network
             }
             catch (Exception e)
             {
-                SysCons.WriteLine("ReceiveCallback: {0}", e);
+                SysCons.LogError("ReceiveCallback: {0}", e);
             }
         }
 
@@ -168,7 +168,7 @@ namespace BaseLib.Network
             }
             catch (Exception e)
             {
-                SysCons.WriteLine("Send: {0}", e);
+                SysCons.LogError("Send: {0}", e);
             }
 
             return totalBytesSent;

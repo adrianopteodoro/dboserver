@@ -1,21 +1,12 @@
-/*
- * Criado por SharpDevelop.
- * Usuário: Adriano
- * Data: 30/11/2011
- * Hora: 20:14
- * 
- * Para alterar este modelo use Ferramentas | Opções | Codificação | Editar Cabeçalhos Padrão.
- */
 using System;
 using System.Globalization;
-using System.Reflection;
 using System.Threading;
 using BaseLib;
 using GameServer.Network;
 
 namespace GameServer
 {
-	class Program
+    class Program
 	{
         public static GameServ GServ;
         public static Thread GameServerThread;
@@ -38,9 +29,9 @@ namespace GameServer
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.IsTerminating)
-                SysCons.WriteLine("Terminating because of unhandled exception.");
+                SysCons.LogError("Terminating because of unhandled exception.");
             else
-                SysCons.WriteLine("Caught unhandled exception.");
+                SysCons.LogError("Caught unhandled exception.");
             Console.ReadLine();
         }
 		
@@ -59,7 +50,7 @@ namespace GameServer
         {
             if (GServ == null) return false;
 
-            SysCons.WriteLine("Stopping GameServer..");
+            SysCons.LogInfo("Stopping GameServer..");
             GServ.Shutdown();
             GameServerThread.Abort();
             GServ = null;
@@ -71,7 +62,7 @@ namespace GameServer
         {
             if (GServ != null)
             {
-                SysCons.WriteLine("Shutting down GameServer..");
+                SysCons.LogInfo("Shutting down GameServer..");
                 GServ.Shutdown();
             }
             Environment.Exit(0);

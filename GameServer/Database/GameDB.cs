@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using BaseLib.Database;
-using BaseLib.Helpers;
-using BaseLib.Entities;
 using GameServer.Configs;
-using GameServer.Network;
 
 namespace GameServer.Database
 {

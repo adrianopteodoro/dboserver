@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using BaseLib.Packets;
 
 namespace BaseLib
 {
     public static class SysCons
     {
-        public static void SavePacket(byte[] data, int opcode)
+        public static void SavePacket(Packet pkt)
         {
             string path = @".\packets\";
-            string filename = String.Format("packet-{0}.dat", opcode);
+            string filename = String.Format("{0}.dat", PacketDefinitions.getPacketName(pkt.Opcode));
             try
             {
                 if (!Directory.Exists(path))
@@ -20,16 +18,23 @@ namespace BaseLib
                 }
 
                 FileStream fs = new FileStream(path + filename, FileMode.OpenOrCreate);
-                fs.Write(data, 0, data.Length);
+                if (pkt.Data.Length < pkt.Lenght)
+                {
+                    fs.Write(pkt.Data, 0, pkt.Data.Length);
+                }
+                else
+                {
+                    fs.Write(pkt.Data, 0, pkt.Lenght);
+                }
                 fs.Close();
             }
             catch(Exception ex)
             {
-                SysCons.WriteLine("Exception: {0}", ex);
+                SysCons.LogError("Exception: {0}", ex);
             }
         }
 
-        public static void WriteLine(string text, params object[] args)
+        public static void LogInfo(string text, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[{0:D02}/{1:D02}/{2:D04} - {3:D02}:{4:D02}:{5:D02}] ",
@@ -40,7 +45,7 @@ namespace BaseLib
                 DateTime.Now.Minute,
                 DateTime.Now.Second);
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("# ");
+            Console.Write("[INFO] ");
             Console.ForegroundColor = ConsoleColor.Gray;
             if (args.Length == 0)
                 Console.WriteLine(text);
@@ -48,7 +53,7 @@ namespace BaseLib
                 Console.WriteLine(text, args);
         }
 
-        public static void Write(string text, params object[] args)
+        public static void LogWarn(string text, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[{0:D02}/{1:D02}/{2:D04} - {3:D02}:{4:D02}:{5:D02}] ",
@@ -58,13 +63,32 @@ namespace BaseLib
                 DateTime.Now.Hour,
                 DateTime.Now.Minute,
                 DateTime.Now.Second);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("# ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("[WARN] ");
             Console.ForegroundColor = ConsoleColor.Gray;
             if (args.Length == 0)
-                Console.Write(text);
+                Console.WriteLine(text);
             else
-                Console.Write(text, args);
+                Console.WriteLine(text, args);
+        }
+
+        public static void LogError(string text, params object[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("[{0:D02}/{1:D02}/{2:D04} - {3:D02}:{4:D02}:{5:D02}] ",
+                DateTime.Now.Day,
+                DateTime.Now.Month,
+                DateTime.Now.Year,
+                DateTime.Now.Hour,
+                DateTime.Now.Minute,
+                DateTime.Now.Second);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("[ERROR] ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            if (args.Length == 0)
+                Console.WriteLine(text);
+            else
+                Console.WriteLine(text, args);
         }
     }
 }

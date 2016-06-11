@@ -66,6 +66,8 @@
     <Compile Include="Network\RandomGenerator.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\PacketDefinitions.cs" />
+    <Compile Include="Packets\PacketOpcodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\DataStructs.cs" />
     <Compile Include="SysCons.cs" />

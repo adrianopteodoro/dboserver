@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using BaseLib;
 using BaseLib.Network;
-using BaseLib.Packets;
 using BaseLib.Entities;
 using CharServer.Packets;
 using CharServer.Configs;
@@ -45,7 +42,7 @@ namespace CharServer.Network
         {
             UC_LOGIN_REQ iPkt = new UC_LOGIN_REQ();
             iPkt.SetData(data);
-            SysCons.WriteLine("UC_LOGIN_REQ AccountID({0}) LastServerID({1})", iPkt.AccountID, iPkt.ServerID);
+            SysCons.LogInfo("UC_LOGIN_REQ AccountID({0}) LastServerID({1})", iPkt.AccountID, iPkt.ServerID);
 
             CU_LOGIN_RES oPkt = new CU_LOGIN_RES();
             oPkt.LastServerID = iPkt.ServerID;
@@ -55,7 +52,7 @@ namespace CharServer.Network
 
         public void SendServerList(Boolean isOnlyOne)
         {
-            SysCons.WriteLine("CU_SERVER_FARM_INFO Sending {0} server(s) information", CharConfig.Instance.GameServerCount);
+            SysCons.LogInfo("CU_SERVER_FARM_INFO Sending {0} server(s) information", CharConfig.Instance.GameServerCount);
             for (int i = 0; i < CharConfig.Instance.GameServerCount; ++i)
             {
                 var oPkt = new CU_SERVER_FARM_INFO();
@@ -88,7 +85,7 @@ namespace CharServer.Network
         {
             var iPkt = new UC_CHARACTER_LOAD_REQ();
             iPkt.SetData(data);
-            SysCons.WriteLine("UC_CHARACTER_LOAD_REQ AccountID({0}) LastServerID({1})", iPkt.AccountID, iPkt.ServerID);
+            SysCons.LogInfo("UC_CHARACTER_LOAD_REQ AccountID({0}) LastServerID({1})", iPkt.AccountID, iPkt.ServerID);
 
             var oPkt = new CU_SERVER_CHANNEL_INFO();
             oPkt.BuildChannelList(iPkt.ServerID);

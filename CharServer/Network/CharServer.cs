@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Net.Sockets;
 using BaseLib;
 using BaseLib.Network;
 using CharServer.Configs;
@@ -21,7 +17,7 @@ namespace CharServer.Network
 
         private void LobbyServer_OnConnect(object sender, ClientEventArgs e)
         {
-            SysCons.WriteLine("Client connected: {0}", e.Client.ToString());
+            SysCons.LogInfo("Client connected: {0}", e.Client.ToString());
             e.Client.User = new CharClient(e.Client);
             byte[] rawData = { 0x06, 0x00, 0x03, 0x00, 0x30, 0x2C, 0x67, 0x4C };
             if (e.Client.IsConnected) e.Client.Send(rawData);
@@ -30,7 +26,7 @@ namespace CharServer.Network
         private void LobbyServer_OnDisconnect(object sender, ClientEventArgs e)
         {
             CharClient client = ((CharClient) e.Client.User);
-            SysCons.WriteLine("Client disconnected: {0}", e.Client.ToString());
+            SysCons.LogInfo("Client disconnected: {0}", e.Client.ToString());
         }
 
         private void LobbyServer_OnDataReceived(object sender, ClientEventArgs e, byte[] data)
@@ -43,7 +39,7 @@ namespace CharServer.Network
         {
             Console.Title = "DBO Char Server";
             if (!this.Listen(CharConfig.Instance.BindIP, CharConfig.Instance.Port)) return;
-            SysCons.WriteLine("CharServer is listening on {0}:{1}...", CharConfig.Instance.BindIP, CharConfig.Instance.Port);
+            SysCons.LogInfo("CharServer is listening on {0}:{1}...", CharConfig.Instance.BindIP, CharConfig.Instance.Port);
         }
     }
 }

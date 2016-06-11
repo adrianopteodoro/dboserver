@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using BaseLib.Network;
 using BaseLib.Entities;
 
-namespace GameServer.Network
+namespace CommunityServer.Network
 {
     /// <summary>
     /// Description of AuthClient.
     /// </summary>
-    public class GameClient : IUser
+    public class CommClient : IUser
 	{
 		/// <summary>
         /// TCP connection.
@@ -24,7 +24,7 @@ namespace GameServer.Network
         public string Password;
         public List<Character> Chars;
         
-		public GameClient(IClient client)
+		public CommClient(IClient client)
 		{
 			this.Client = client;
 		}

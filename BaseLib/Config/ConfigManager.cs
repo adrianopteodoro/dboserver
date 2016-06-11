@@ -25,7 +25,7 @@ namespace BaseLib.Configs
             {
                 Parser = new IniConfigSource(); // initiate a new .ini source.
                 _fileExists = false;
-                Console.WriteLine("Error loading settings config.ini, will be using default settings.");
+                SysCons.LogWarn("Cannot loading settings file \"config.ini\", will be using default settings.");
             }
             finally
             {
