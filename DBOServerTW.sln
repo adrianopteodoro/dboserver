@@ -23,6 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharServer", "CharServer\Ch
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityServer", "CommunityServer\CommunityServer.csproj", "{C92BF010-5A51-487C-BC3F-5309F7001D66}"
+	ProjectSection(ProjectDependencies) = postProject
+		{011A6ABC-0115-4284-8A8D-CE40E681F883} = {011A6ABC-0115-4284-8A8D-CE40E681F883}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
