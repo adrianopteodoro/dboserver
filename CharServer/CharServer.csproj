@@ -58,6 +58,7 @@
     <Compile Include="Packets\CU_SERVER_CHANNEL_INFO.cs" />
     <Compile Include="Packets\CU_SERVER_FARM_INFO.cs" />
     <Compile Include="Packets\PacketParser.cs" />
+    <Compile Include="Packets\UC_CHARACTER_ADD_REQ.cs" />
     <Compile Include="Packets\UC_CHARACTER_LOAD_REQ.cs" />
     <Compile Include="Packets\UC_LOGIN_REQ.cs" />
     <Compile Include="Program.cs" />

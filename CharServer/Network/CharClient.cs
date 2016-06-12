@@ -5,6 +5,7 @@ using BaseLib.Network;
 using BaseLib.Entities;
 using CharServer.Packets;
 using CharServer.Configs;
+using BaseLib.Structs;
 
 namespace CharServer.Network
 {
@@ -96,6 +97,24 @@ namespace CharServer.Network
             osPkt.ServerID = iPkt.ServerID;
             osPkt.BuildPacket();
             this.Client.Send(osPkt.Data);
+        }
+
+        public void SendCharacterCreate(byte[] data)
+        {
+            var iPkt = new UC_CHARACTER_ADD_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo(
+                "UC_CHARACTER_ADD_REQ Name({0}) Race({1}) Class({2}) Gender({3}) Face({4}) Hair({5}) HairColor({6}) SkinColor({7}) Blood({8})",
+                iPkt.Name,
+                ((CharRaces)iPkt.Race).ToString(),
+                ((CharClasses)iPkt.Class).ToString(),
+                ((CharGenders)iPkt.Gender).ToString(),
+                iPkt.Face,
+                iPkt.Hair,
+                iPkt.HairColor,
+                iPkt.SkinColor,
+                iPkt.Blood
+            );
         }
     }
 }

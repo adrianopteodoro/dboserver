@@ -25,9 +25,8 @@ namespace CharServer.Packets
                 case PacketOpcodes.UC_CHARACTER_SERVERLIST_REQ: client.SendServerList(false); break;
                 case PacketOpcodes.UC_CHARACTER_SERVERLIST_ONE_REQ: client.SendServerList(true); break;
                 case PacketOpcodes.UC_CHARACTER_LOAD_REQ: client.SendCharacterLoad(data); break;
-                default:
-                    PacketDefinitions.LogPacketData(pkt);
-                    break;
+                case PacketOpcodes.UC_CHARACTER_ADD_REQ: client.SendCharacterCreate(data); break;
+                default: PacketDefinitions.LogPacketData(pkt); break;
             }
         }
     }

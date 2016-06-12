@@ -9,7 +9,11 @@ namespace BaseLib
         public static void SavePacket(Packet pkt)
         {
             string path = @".\packets\";
-            string filename = String.Format("{0}.dat", PacketDefinitions.getPacketName(pkt.Opcode));
+            string filename = String.Format(
+                "{0}_{1}.dat",
+                PacketDefinitions.getPacketName(pkt.Opcode),
+                DateTime.Now.ToString(@"MM-dd-yyyy_HH-mm-ss")
+            );
             try
             {
                 if (!Directory.Exists(path))
@@ -37,13 +41,7 @@ namespace BaseLib
         public static void LogInfo(string text, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("[{0:D02}/{1:D02}/{2:D04} - {3:D02}:{4:D02}:{5:D02}] ",
-                DateTime.Now.Day,
-                DateTime.Now.Month,
-                DateTime.Now.Year,
-                DateTime.Now.Hour,
-                DateTime.Now.Minute,
-                DateTime.Now.Second);
+            Console.Write("[{0}] ", DateTime.Now.ToString(@"MM/dd/yyyy HH:mm:ss"));
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("[INFO] ");
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -56,13 +54,7 @@ namespace BaseLib
         public static void LogWarn(string text, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("[{0:D02}/{1:D02}/{2:D04} - {3:D02}:{4:D02}:{5:D02}] ",
-                DateTime.Now.Day,
-                DateTime.Now.Month,
-                DateTime.Now.Year,
-                DateTime.Now.Hour,
-                DateTime.Now.Minute,
-                DateTime.Now.Second);
+            Console.Write("[{0}] ", DateTime.Now.ToString(@"MM/dd/yyyy HH:mm:ss"));
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("[WARN] ");
             Console.ForegroundColor = ConsoleColor.Gray;
@@ -75,14 +67,8 @@ namespace BaseLib
         public static void LogError(string text, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("[{0:D02}/{1:D02}/{2:D04} - {3:D02}:{4:D02}:{5:D02}] ",
-                DateTime.Now.Day,
-                DateTime.Now.Month,
-                DateTime.Now.Year,
-                DateTime.Now.Hour,
-                DateTime.Now.Minute,
-                DateTime.Now.Second);
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("[{0}] ", DateTime.Now.ToString(@"MM/dd/yyyy HH:mm:ss"));
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("[ERROR] ");
             Console.ForegroundColor = ConsoleColor.Gray;
             if (args.Length == 0)
