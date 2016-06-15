@@ -70,6 +70,7 @@
     <Compile Include="Packets\PacketOpcodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\DataStructs.cs" />
+    <Compile Include="Structs\ResultCodes.cs" />
     <Compile Include="SysCons.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -115,6 +115,11 @@ namespace CharServer.Network
                 iPkt.SkinColor,
                 iPkt.Blood
             );
+
+            var oPkt = new CU_CHARACTER_ADD_RES();
+            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SAMENAME_EXIST;
+            oPkt.BuildPacket();
+            this.Client.Send(oPkt.Data);
         }
     }
 }

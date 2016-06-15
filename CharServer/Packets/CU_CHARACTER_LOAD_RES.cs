@@ -1,4 +1,5 @@
 ﻿using BaseLib.Packets;
+using BaseLib.Structs;
 
 namespace CharServer.Packets
 {
@@ -6,11 +7,11 @@ namespace CharServer.Packets
     {
         public CU_CHARACTER_LOAD_RES()
         {
-            this.Opcode = (ushort)PacketOpcodes.CU_CHARACTER_LOAD_RES;
-            this.ResultCode = 200;
-            this.ServerID = 255;
-            this.OpenCharSlots = 8;
-            this.VIPCharSlots = 0;
+            Opcode = (ushort)PacketOpcodes.CU_CHARACTER_LOAD_RES;
+            ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
+            ServerID = 255;
+            OpenCharSlots = 8;
+            VIPCharSlots = 0;
         }
 
         public ushort ResultCode

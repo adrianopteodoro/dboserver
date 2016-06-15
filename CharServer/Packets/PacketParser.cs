@@ -1,5 +1,4 @@
-﻿using BaseLib;
-using BaseLib.Packets;
+﻿using BaseLib.Packets;
 using CharServer.Network;
 
 namespace CharServer.Packets
