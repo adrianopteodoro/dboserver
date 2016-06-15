@@ -5,3 +5,5 @@
 - Using MySQL and C#
 
 #####[Resource Files Download] (https://mega.nz/#F!qshkVBIA!A_BC5w0pOmydW8YEvv9Wwg)
+
+[![Build status](https://ci.appveyor.com/api/projects/status/jn6ru8uel805tok6/branch/master?svg=true)](https://ci.appveyor.com/project/adrianopteodoro/dboserver/branch/master)
