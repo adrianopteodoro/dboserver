@@ -1,6 +1,10 @@
 using System.Collections.Generic;
+using BaseLib;
 using BaseLib.Network;
+using BaseLib.Packets;
+using GameServer.Packets;
 using BaseLib.Entities;
+using System.Text;
 
 namespace GameServer.Network
 {
@@ -36,5 +40,65 @@ namespace GameServer.Network
 			            0x38, 0x80, 0x14, 0x72 };
             this.Client.Send(rawData);
         }
-	}
+
+        internal void AuthKeyForCommunityServer(byte[] data)
+        {
+            //GU_AUTH_KEY_FOR_COMMUNITY_SERVER_RES
+            SysCons.LogInfo("GU_AUTH_KEY_FOR_COMMUNITY_SERVER_RES");
+            GU_AUTH_KEY_FOR_COMMUNITY_SERVER_RES oPkt = new GU_AUTH_KEY_FOR_COMMUNITY_SERVER_RES();
+            oPkt.ResultCode = 500;
+            oPkt.AuthKey = Encoding.ASCII.GetBytes("SE@WASDE#$RFWD@D");
+            oPkt.BuildPacket();
+            this.Client.Send(oPkt.Data);
+        }
+
+        internal void EnterWolrd(byte[] data)
+        {
+            // pakiet UG_ENTER_WORLD nie ma nic
+            SysCons.LogInfo("UG_ENTER_WORLD");
+            //GU_NETMARBLEMEMBERIP_NFY
+            // jakis pakiet na surowo
+            //GU_AVATAR_WORLD_INFO
+            //GU_ENTER_WORLD_COMPLETE
+            SysCons.LogInfo("GU_ENTER_WORLD_COMPLETE");
+            Packet pkt = new Packet();
+            pkt.Opcode = (ushort)PacketOpcodes.GU_ENTER_WORLD_COMPLETE;
+            pkt.BuildPacket();
+            this.Client.Send(pkt.Data);
+        }
+
+        internal void SendGameEnter(byte[] data)
+        {
+            // to do UG_GAME_ENTER_REQ
+            SysCons.LogInfo("UG_GAME_ENTER_REQ");
+            GU_GAME_ENTER_RES sPkt = new GU_GAME_ENTER_RES();
+            sPkt.ResultCode = 500;
+            sPkt.achCommunityServerIP = Encoding.ASCII.GetBytes("192.168.0.3");
+            sPkt.wCommunityServerPort = 50200;
+            SysCons.LogInfo("GU_GAME_ENTER_RES IPAddress({0}) Port({1})", sPkt.achCommunityServerIP, sPkt.wCommunityServerPort);
+            sPkt.BuildPacket();
+            this.Client.Send(sPkt.Data);
+            // O WCHUJ PACKETOW JEDZIEM zerami
+            // GU_AVATAR_CHAR_INFO
+
+            // GU_AVATAR_ITEM_INFO
+
+            //GU_AVATAR_SKILL_INFO
+
+            //GU_AVATAR_HTB_INFO
+
+            //GU_QUICK_SLOT_INFO
+
+            //GU_WAR_FOG_INFO
+
+            //GU_AVATAR_BUFF_INFO
+
+            //GU_AVATAR_INFO_END
+            SysCons.LogInfo("GU_AVATAR_INFO_END");
+            Packet pkt = new Packet();
+            pkt.Opcode = (ushort)PacketOpcodes.GU_AVATAR_INFO_END;
+            pkt.BuildPacket();
+            this.Client.Send(pkt.Data);
+        }
+    }
 }

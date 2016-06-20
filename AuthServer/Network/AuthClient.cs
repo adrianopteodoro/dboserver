@@ -59,14 +59,16 @@ namespace AuthServer.Network
             SysCons.LogInfo("UA_LOGIN_REQ {0} CodePage({1}) {2}.{3}", inPkt.UserID, inPkt.CodePage, inPkt.MajorVer, inPkt.MinorVer);
             this.Username = inPkt.UserID;
             this.Password = inPkt.UserPW;
-            this.AccountID = (uint)AuthDB.GetAccountID(this.Username);
+            // ignoring sql connection
+            this.AccountID = 1;//(uint)AuthDB.GetAccountID(this.Username);
 
             AU_LOGIN_RES sPkt = new AU_LOGIN_RES();
             sPkt.UserID = inPkt.UserID;
             sPkt.AccountID = this.AccountID;
             sPkt.AllowedFunctionForDeveloper = 65535;
             sPkt.AuthKey = Encoding.ASCII.GetBytes("SE@WASDE#$RFWD@D");
-            sPkt.ResultCode = (ushort)AuthDB.CheckAccount(this.Username, this.Password);
+            // ignoring sql connection
+            sPkt.ResultCode = 100;// (ushort)AuthDB.CheckAccount(this.Username, this.Password);
             sPkt.lastServerID = 255;
             sPkt.lastChannelID = 255;
             sPkt.BuildCharServerList();

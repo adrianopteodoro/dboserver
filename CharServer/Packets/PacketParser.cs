@@ -24,8 +24,11 @@ namespace CharServer.Packets
                 case PacketOpcodes.UC_LOGIN_REQ: client.SendLoginResponse(data); break;
                 case PacketOpcodes.UC_CHARACTER_SERVERLIST_REQ: client.SendServerList(false); break;
                 case PacketOpcodes.UC_CHARACTER_SERVERLIST_ONE_REQ: client.SendServerList(true); break;
+                case PacketOpcodes.UC_CHARACTER_ADD_REQ: client.SendCharacterAdd(data); break;
+                case PacketOpcodes.UC_CHARACTER_SELECT_REQ: client.SendCharacterSelect(data); break;
+                case PacketOpcodes.UC_CHARACTER_EXIT_REQ: client.SendCharacterExit(data); break;
                 case PacketOpcodes.UC_CHARACTER_LOAD_REQ: client.SendCharacterLoad(data); break;
-                case PacketOpcodes.UC_CHARACTER_ADD_REQ: client.SendCharacterCreate(data); break;
+                case PacketOpcodes.UC_CONNECT_WAIT_CHECK_REQ: client.SendWaitCheck(data); break;
                 default: PacketDefinitions.LogPacketData(pkt); break;
             }
         }

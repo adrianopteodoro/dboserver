@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using BaseLib.Network;
 using BaseLib.Entities;
+using System;
+using BaseLib;
+using BaseLib.Packets;
+using CommunityServer.Packets;
+using CommunityServer.Configs;
+using BaseLib.Structs;
+using System.Text;
 
 namespace CommunityServer.Network
 {
@@ -36,5 +43,14 @@ namespace CommunityServer.Network
 			            0x38, 0x80, 0x14, 0x72 };
             this.Client.Send(rawData);
         }
-	}
+        internal void ChatSendMessageSay(byte[] data)
+        {
+            SysCons.LogInfo("UT_CHAT_MESSAGE_SAY");
+            Packet pkt = new Packet();
+            pkt.Opcode = (ushort)PacketOpcodes.TU_CHAT_MESSAGE_SAY;
+            pkt.BuildPacket();
+            this.Client.Send(pkt.Data);
+
+        }
+    }
 }

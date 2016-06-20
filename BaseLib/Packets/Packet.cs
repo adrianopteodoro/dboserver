@@ -102,7 +102,18 @@ namespace BaseLib.Packets
             data.Seek(position, SeekOrigin.Begin);
             data.Write(BitConverter.GetBytes(value), 0, 4);
         }
-
+        public ulong GetLong(int position)
+        {
+            byte[] buf = new byte[8];
+            data.Seek(position, SeekOrigin.Begin);
+            data.Read(buf, 0, 8);
+            return BitConverter.ToUInt32(buf, 0);
+        }
+        public void SetLong(int position, ulong value)
+        {
+            data.Seek(position, SeekOrigin.Begin);
+            data.Write(BitConverter.GetBytes(value), 0, 8);
+        }
         public float GetFloat(int position)
         {
             byte[] buf = new byte[4];

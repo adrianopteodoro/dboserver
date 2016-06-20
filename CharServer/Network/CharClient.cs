@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLib;
+using BaseLib.Packets;
 using BaseLib.Network;
 using BaseLib.Entities;
 using CharServer.Packets;
 using CharServer.Configs;
 using BaseLib.Structs;
+using System.Text;
 
 namespace CharServer.Network
 {
@@ -115,6 +117,60 @@ namespace CharServer.Network
                 iPkt.SkinColor,
                 iPkt.Blood
             );
+        }
+
+        internal void SendCharacterAdd(byte[] data)
+        {
+            //TO DO UC_CHARACTER_ADD_REQ
+            SysCons.LogInfo("UC_CHARACTER_ADD_REQ");
+            UC_CHARACTER_ADD_REQ iPkt = new UC_CHARACTER_ADD_REQ();
+            //iPkt.SetData(data);
+            //SysCons.WriteLine("UC_CHARACTER_ADD_REQ Name({0}) CodePage({1}) Race({2}) Class({3})", iPkt.CharName, iPkt.CodePage, iPkt.Race, iPkt.Class);
+            //dlaczego wczesniej bylo var ?
+            CU_CHARACTER_ADD_RES oPkt = new CU_CHARACTER_ADD_RES();
+            oPkt.ResultCode = 200;
+            oPkt.charID = 1;
+            //oPkt.Name = "szczeepan";
+            oPkt.BuildPacket();
+            this.Client.Send(oPkt.Data);
+        }
+
+        internal void SendCharacterSelect(byte[] data)
+        {
+            UC_CHARACTER_SELECT_REQ iPkt = new UC_CHARACTER_SELECT_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo("UC_CHARACTER_SELECT_REQ charId({0}) ServerChannelIndex({1})", iPkt.charId, iPkt.byServerChannelIndex);
+
+            CU_CHARACTER_SELECT_RES sPkt = new CU_CHARACTER_SELECT_RES();
+            sPkt.szGameServerIP = Encoding.ASCII.GetBytes("192.168.0.3");
+            sPkt.wGameServerPortForClient = 50400;
+            SysCons.LogInfo("CU_CHARACTER_SELECT_RES IPAddress({0}) Port({1})", sPkt.szGameServerIP, sPkt.wGameServerPortForClient);
+            sPkt.AuthKey = Encoding.ASCII.GetBytes("SE@WASDE#$RFWD@D");
+            sPkt.ResultCode = 200;
+            // connecting to GameServer
+            sPkt.BuildPacket();
+            this.Client.Send(sPkt.Data);
+        }
+
+        internal void SendWaitCheck(byte[] data)
+        {
+            UC_CONNECT_WAIT_CHECK_REQ iPkt = new UC_CONNECT_WAIT_CHECK_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo("UC_CONNECT_WAIT_CHECK_REQ ServerChannelIndex({0})", iPkt.byServerChannelIndex);
+            CU_CONNECT_WAIT_CHECK_RES oPkt = new CU_CONNECT_WAIT_CHECK_RES();
+            oPkt.BuildPacket();
+            this.Client.Send(oPkt.Data);
+            CU_CONNECT_WAIT_COUNT_NFY o2Pkt = new CU_CONNECT_WAIT_COUNT_NFY();
+            o2Pkt.BuildPacket();
+            this.Client.Send(o2Pkt.Data);
+        }
+        internal void SendCharacterExit(byte[] data)
+        {
+            SysCons.LogInfo("UC_CHARACTER_EXIT_REQ disconnected  client");
+            Packet sPkt = new Packet();
+            sPkt.Opcode = (ushort)PacketOpcodes.CU_CHARACTER_EXIT_RES;
+            sPkt.BuildPacket();
+            this.Client.Send(sPkt.Data);
         }
     }
 }

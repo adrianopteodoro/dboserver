@@ -1223,5 +1223,12 @@ namespace BaseLib.Packets
         GU_EVENT_SCHEDULING_START,
         GU_EVENT_SCHEDULING_END,
         GU_SCOUTER_ACTIVATION_RES,
+
+
+        // USER TO CHAT OPCODES
+        UT_CHAT_MESSAGE_SAY = 6001,
+
+        // Chat to User Opcodes
+        TU_CHAT_MESSAGE_SAY = 7005
     };
 }
