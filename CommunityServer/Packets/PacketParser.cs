@@ -21,6 +21,7 @@ namespace CommunityServer.Packets
                 case PacketOpcodes.SYS_ALIVE: /* TO SKIP LOGGING THIS PACKET */ break;
                 case PacketOpcodes.SYS_HANDSHAKE_RES: client.SendHandShakeRes(); break;
                 case PacketOpcodes.UT_CHAT_MESSAGE_SAY: client.ChatSendMessageSay(data); break;
+                //case PacketOpcodes.UT_GUILD_LEAVE_REQ:
                 default:
                     PacketDefinitions.LogPacketData(pkt);
                     break;

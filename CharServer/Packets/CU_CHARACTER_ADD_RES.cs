@@ -25,6 +25,9 @@ namespace CharServer.Packets
             this.SkinColor = 5;
             this.Level = 8;
             this.Money = 8888;
+            this.fPositionX = 2895.460449f;
+            this.fPositionY = 37.470001f;
+            this.fPositionZ = -2370.256836f;
 
         }
         // Lenght 2

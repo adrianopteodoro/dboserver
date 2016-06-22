@@ -1227,7 +1227,56 @@ namespace BaseLib.Packets
 
         // USER TO CHAT OPCODES
         UT_CHAT_MESSAGE_SAY = 6001,
+        UT_CHAT_MESSAGE_SHOUT,
+        UT_CHAT_MESSAGE_WHISPER,
+        UT_CHAT_MESSAGE_PARTY,
+        UT_CHAT_MESSAGE_GUILD,
 
+        UT_GUILD_DISBAND_REQ,                               // 길드 해체하기
+        UT_GUILD_DISBAND_CANCEL_REQ,                        // 길드 해체 취소하기
+        UT_GUILD_RESPONSE_INVITATION,                       // 길드 초대에 대한 대답 보내기
+        UT_GUILD_LEAVE_REQ,                                 // 길드 탈퇴하기
+        UT_GUILD_KICK_OUT_REQ,                              // 길드 멤버 강제로 탈퇴시키기
+        UT_GUILD_APPOINT_SECOND_MASTER_REQ,                 // 길드 멤버를 Second Master로 임명하기
+        UT_GUILD_DISMISS_SECOND_MASTER_REQ,                 // 길드 Second Master의 직위를 해제하기
+        UT_GUILD_CHANGE_GUILD_MASTER_REQ,                   // 길드 마스터를 이양하기
+
+        UT_CHAT_MESSAGE_PRIVATESHOP_BUSINESS,               // 개인상점 흥정 대화 [10/31/2007 SGpro]
+
+        UT_FRIEND_ADD_REQ,      // 친구 추가
+        UT_FRIEND_DEL_REQ,      // 친구 삭제
+        UT_FRIEND_MOVE_REQ,     // 친구 -> 블랙리스트로 이동
+        UT_FRIEND_BLACK_ADD_REQ,        // 친구 블랙 리스트 추가
+        UT_FRIEND_BLACK_DEL_REQ,        // 친구 블랙 리스트 삭제
+
+        UT_RANKBATTLE_RANK_LIST_REQ,
+        UT_RANKBATTLE_RANK_FIND_CHARACTER_REQ,
+        UT_RANKBATTLE_RANK_COMPARE_DAY_REQ,
+
+        UT_GUILD_CHANGE_NOTICE_REQ,
+        UT_TMQ_RECORD_LIST_REQ,
+        UT_TMQ_MEMBER_LIST_REQ,
+
+        UT_BUDOKAI_TOURNAMENT_INDIVIDUAL_LIST_REQ,
+        UT_BUDOKAI_TOURNAMENT_INDIVIDUAL_INFO_REQ,
+        UT_BUDOKAI_TOURNAMENT_TEAM_LIST_REQ,
+        UT_BUDOKAI_TOURNAMENT_TEAM_INFO_REQ,
+
+        UT_PETITION_CHAT_START_RES,                         // [ by sooshia 2008-10-15 ]
+        UT_PETITION_CHAT_USER_SAY_REQ,                      // 유저가 말한 내용 [ by sooshia 2008-10-16 ]
+        UT_PETITION_CHAT_USER_END_NFY,                      // [ by sooshia 2008-10-17 ]
+        UT_PETITION_CHAT_GM_SAY_RES,                        // [ by sooshia 2008-10-18 ]
+        UT_PETITION_USER_INSERT_REQ,                        // [ by sooshia 2008-10-18 ]
+        UT_PETITION_CONTENT_MODIFY_REQ,                     // [ by sooshia 2008-10-18 ]
+        UT_PETITION_SATISFACTION_NFY,                       // [ by sooshia 2008-10-18 ]
+        UT_PETITION_USER_CANCEL_REQ,                        // [ by sooshia 2008-10-18 ]
+
+        UT_DOJO_BUDOKAI_SEED_ADD_REQ,
+        UT_DOJO_BUDOKAI_SEED_DEL_REQ,
+        UT_DOJO_NOTICE_CHANGE_REQ,
+
+        UT_OPCODE_END_DUMMY,
+        UT_OPCODE_END = UT_OPCODE_END_DUMMY - 1,
         // Chat to User Opcodes
         TU_CHAT_MESSAGE_SAY = 7005
     };

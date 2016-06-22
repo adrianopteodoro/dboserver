@@ -49,7 +49,7 @@ namespace CommunityServer.Network
             Packet pkt = new Packet();
             pkt.Opcode = (ushort)PacketOpcodes.TU_CHAT_MESSAGE_SAY;
             pkt.BuildPacket();
-            this.Client.Send(pkt.Data);
+            //this.Client.Send(pkt.Data);
 
         }
     }
