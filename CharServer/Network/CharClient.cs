@@ -124,13 +124,32 @@ namespace CharServer.Network
             //TO DO UC_CHARACTER_ADD_REQ
             SysCons.LogInfo("UC_CHARACTER_ADD_REQ");
             UC_CHARACTER_ADD_REQ iPkt = new UC_CHARACTER_ADD_REQ();
-            //iPkt.SetData(data);
-            //SysCons.WriteLine("UC_CHARACTER_ADD_REQ Name({0}) CodePage({1}) Race({2}) Class({3})", iPkt.CharName, iPkt.CodePage, iPkt.Race, iPkt.Class);
+            iPkt.SetData(data);
+            SysCons.LogInfo(
+                "UC_CHARACTER_ADD_REQ Name({0}) Race({1}) Class({2}) Gender({3}) Face({4}) Hair({5}) HairColor({6}) SkinColor({7}) Blood({8})",
+                iPkt.Name,
+                ((CharRaces)iPkt.Race).ToString(),
+                ((CharClasses)iPkt.Class).ToString(),
+                ((CharGenders)iPkt.Gender).ToString(),
+                iPkt.Face,
+                iPkt.Hair,
+                iPkt.HairColor,
+                iPkt.SkinColor,
+                iPkt.Blood
+            );
             //dlaczego wczesniej bylo var ?
             CU_CHARACTER_ADD_RES oPkt = new CU_CHARACTER_ADD_RES();
             oPkt.ResultCode = 200;
             oPkt.charID = 1;
-            //oPkt.Name = "szczeepan";
+            oPkt.Name = iPkt.Name;
+            oPkt.Race = iPkt.Race;
+            oPkt.Face = iPkt.Face;
+            oPkt.Hair = iPkt.Hair;
+            oPkt.Gender = iPkt.Gender;
+            oPkt.HairColor = iPkt.HairColor;
+            oPkt.SkinColor = iPkt.SkinColor;
+            oPkt.worldTblidx = 1;
+            oPkt.worldId = 1;
             oPkt.BuildPacket();
             this.Client.Send(oPkt.Data);
         }
@@ -142,7 +161,7 @@ namespace CharServer.Network
             SysCons.LogInfo("UC_CHARACTER_SELECT_REQ charId({0}) ServerChannelIndex({1})", iPkt.charId, iPkt.byServerChannelIndex);
 
             CU_CHARACTER_SELECT_RES sPkt = new CU_CHARACTER_SELECT_RES();
-            sPkt.szGameServerIP = Encoding.ASCII.GetBytes("192.168.0.3");
+            sPkt.szGameServerIP = Encoding.ASCII.GetBytes("127.0.0.1");
             sPkt.wGameServerPortForClient = 50400;
             SysCons.LogInfo("CU_CHARACTER_SELECT_RES IPAddress({0}) Port({1})", sPkt.szGameServerIP, sPkt.wGameServerPortForClient);
             sPkt.AuthKey = Encoding.ASCII.GetBytes("SE@WASDE#$RFWD@D");

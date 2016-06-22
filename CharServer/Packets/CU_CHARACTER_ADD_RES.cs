@@ -15,7 +15,7 @@ namespace CharServer.Packets
             this.Opcode = (ushort)PacketOpcodes.CU_CHARACTER_ADD_RES;
             this.ResultCode = 200;
             this.charID = 1;
-            this.Name = "Szczeepanik";
+            this.Name = "";
             this.Race = 1;
             this.Class = 4;
             this.Gender = 1;

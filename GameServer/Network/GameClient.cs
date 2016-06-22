@@ -73,9 +73,9 @@ namespace GameServer.Network
             SysCons.LogInfo("UG_GAME_ENTER_REQ");
             GU_GAME_ENTER_RES sPkt = new GU_GAME_ENTER_RES();
             sPkt.ResultCode = 500;
-            sPkt.achCommunityServerIP = Encoding.ASCII.GetBytes("192.168.0.3");
-            sPkt.wCommunityServerPort = 50200;
-            SysCons.LogInfo("GU_GAME_ENTER_RES IPAddress({0}) Port({1})", sPkt.achCommunityServerIP, sPkt.wCommunityServerPort);
+            sPkt.achCommunityServerIP = Encoding.ASCII.GetBytes("127.0.0.1");
+            sPkt.wCommunityServerPort = 50700;
+            SysCons.LogInfo("GU_GAME_ENTER_RES IPAddress({0}) Port({1}) wysylam namiary ziom", sPkt.achCommunityServerIP, sPkt.wCommunityServerPort);
             sPkt.BuildPacket();
             this.Client.Send(sPkt.Data);
             // O WCHUJ PACKETOW JEDZIEM zerami
