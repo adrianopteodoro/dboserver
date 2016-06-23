@@ -6,6 +6,7 @@ using BaseLib.Network;
 using BaseLib.Entities;
 using CharServer.Packets;
 using CharServer.Configs;
+using CharServer.Database;
 using BaseLib.Structs;
 using System.Text;
 
@@ -26,6 +27,7 @@ namespace CharServer.Network
         public uint UniqueID;
         public string Username;
         public string Password;
+        public byte ServerID;
         public List<Character> Chars;
         
 		public CharClient(IClient client)
@@ -51,6 +53,7 @@ namespace CharServer.Network
             oPkt.LastServerID = iPkt.ServerID;
             oPkt.BuildPacket();
             this.Client.Send(oPkt.Data);
+            this.AccountID = iPkt.AccountID;
         }
 
         public void SendServerList(Boolean isOnlyOne)
@@ -99,6 +102,7 @@ namespace CharServer.Network
             osPkt.ServerID = iPkt.ServerID;
             osPkt.BuildPacket();
             this.Client.Send(osPkt.Data);
+            this.ServerID = iPkt.ServerID;
         }
 
         public void SendCharacterCreate(byte[] data)
@@ -139,10 +143,13 @@ namespace CharServer.Network
             );
             //dlaczego wczesniej bylo var ?
             CU_CHARACTER_ADD_RES oPkt = new CU_CHARACTER_ADD_RES();
-            oPkt.ResultCode = 200;
+            oPkt.ResultCode = (ushort)CharDB.InsertCharacter(this.AccountID,this.ServerID,iPkt.Name, iPkt.Race, iPkt.Class,
+                iPkt.Gender, iPkt.Face, iPkt.Hair, iPkt.HairColor, iPkt.SkinColor);
             oPkt.charID = 1;
             oPkt.Name = iPkt.Name;
             oPkt.Race = iPkt.Race;
+            oPkt.Class = iPkt.Class;
+            oPkt.Gender = iPkt.Gender;
             oPkt.Face = iPkt.Face;
             oPkt.Hair = iPkt.Hair;
             oPkt.Gender = iPkt.Gender;

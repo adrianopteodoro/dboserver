@@ -20,5 +20,14 @@ namespace CharServer.Database
             CharDB.Connection = null;
             return res;
         }
+
+        public static int InsertCharacter(uint AccID, byte ServerID, string Name, byte Race, byte Class, byte Gender, byte Face, byte Hair, byte HairColor, byte SkinColor)
+        {
+            int _res = 0;
+            //
+            var res = CharDB.UserDataQuery("CALL `DFInsertCharacter`('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}');", AccID, ServerID, Name, Race, Class, Gender, Face, Hair, HairColor, SkinColor);
+            foreach (var r in res[0]) _res = (int)r.Value;
+            return _res;
+        }
     }
 }
