@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BaseLib.Packets;
+using BaseLib.Structs;
 
 namespace GameServer.Packets
 {
@@ -10,9 +11,16 @@ namespace GameServer.Packets
     {
         GU_AVATAR_WORLD_INFO()
         {
-
+            //Default initialization
+            sVECTOR3 vCurLoc = new sVECTOR3(0, 0, 0);
+            sVECTOR3 vCurDir = new sVECTOR3(0, 0, 0);
+            sGAME_RULE_INFO worldInfo;
+            Byte            byDojoCount;
+            
+            sDBO_DOJO_BRIEF sDojoData[] = new sDBO_DOJO_BRIEF[DBOCommon.DBO_DOJO_IN_WORLD_MAX];
 
         }
+
 
     }
 }
