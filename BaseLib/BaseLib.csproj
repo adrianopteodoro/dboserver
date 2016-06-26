@@ -56,6 +56,7 @@
     <Compile Include="Entities\Digimon.cs" />
     <Compile Include="Helpers\FileHelpers.cs" />
     <Compile Include="Helpers\Position.cs" />
+    <Compile Include="Helpers\Util.cs" />
     <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\ClientDataEventArgs.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structs\DataStructs.cs" />
     <Compile Include="SysCons.cs" />
+    <Compile Include="Tables\TableHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
