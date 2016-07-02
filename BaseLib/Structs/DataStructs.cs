@@ -45,7 +45,7 @@ namespace BaseLib.Structs
         KAR_MA
     }
 
-    enum EquipSlots
+    public enum EquipSlots
     {
         HAND,
         SUB_WEAPON,

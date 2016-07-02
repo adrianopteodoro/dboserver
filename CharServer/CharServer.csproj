@@ -52,6 +52,10 @@
     <Compile Include="Network\CharClient.cs" />
     <Compile Include="Network\CharServer.cs" />
     <Compile Include="Packets\CU_CHARACTER_ADD_RES.cs" />
+    <Compile Include="Packets\CU_CHARACTER_SELECT_RES.cs" />
+    <Compile Include="Packets\CU_CONNECT_WAIT_CANCEL_RES.cs" />
+    <Compile Include="Packets\CU_CONNECT_WAIT_COUNT_NFY.cs" />
+    <Compile Include="Packets\CU_CONNECT_WAIT_CHECK_RES.cs" />
     <Compile Include="Packets\CU_CHARACTER_LOAD_RES.cs" />
     <Compile Include="Packets\CU_CHARACTER_SERVERLIST_RES.cs" />
     <Compile Include="Packets\CU_CHARACTER_SERVERLIST_ONE_RES.cs" />
@@ -60,7 +64,12 @@
     <Compile Include="Packets\CU_SERVER_FARM_INFO.cs" />
     <Compile Include="Packets\PacketParser.cs" />
     <Compile Include="Packets\UC_CHARACTER_ADD_REQ.cs" />
+    <Compile Include="Packets\CU_CHARACTER_EXIT_RES.cs" />
+    <Compile Include="Packets\UC_CHARACTER_SELECT_REQ.cs" />
+    <Compile Include="Packets\UC_CONNECT_WAIT_CHECK_REQ.cs" />
+    <Compile Include="Packets\UC_CONNECT_WAIT_CANCEL_REQ.cs" />
     <Compile Include="Packets\UC_CHARACTER_LOAD_REQ.cs" />
+    <Compile Include="Packets\UC_CHARACTER_EXIT_REQ.cs" />
     <Compile Include="Packets\UC_LOGIN_REQ.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

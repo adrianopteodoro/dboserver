@@ -35,8 +35,8 @@ namespace CharServer.Packets
                 this.SetInt(9 + (i * 119), 100);
                 // Load
                 this.SetInt(13 + (i * 119), 0);
-                // Is Scramble
-                this.SetByte(17 + (i * 119), 1);
+                // Is Scramble (0 = NO | 1 = YES)
+                this.SetByte(17 + (i * 119), 0);
             }
         }
     }

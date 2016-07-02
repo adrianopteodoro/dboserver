@@ -22,6 +22,9 @@ namespace CharServer.Network
 
         public uint AccountID;
         public uint UniqueID;
+        public uint CharID;
+        public byte ServerID;
+        public byte ChannelID;
         public string Username;
         public string Password;
         public List<Character> Chars;
@@ -45,8 +48,11 @@ namespace CharServer.Network
             iPkt.SetData(data);
             SysCons.LogInfo("UC_LOGIN_REQ AccountID({0}) LastServerID({1})", iPkt.AccountID, iPkt.ServerID);
 
+            AccountID = iPkt.AccountID;
+            ServerID = iPkt.ServerID;
+
             CU_LOGIN_RES oPkt = new CU_LOGIN_RES();
-            oPkt.LastServerID = iPkt.ServerID;
+            oPkt.LastServerID = ServerID;
             oPkt.BuildPacket();
             this.Client.Send(oPkt.Data);
         }
@@ -104,22 +110,94 @@ namespace CharServer.Network
             var iPkt = new UC_CHARACTER_ADD_REQ();
             iPkt.SetData(data);
             SysCons.LogInfo(
-                "UC_CHARACTER_ADD_REQ Name({0}) Race({1}) Class({2}) Gender({3}) Face({4}) Hair({5}) HairColor({6}) SkinColor({7}) Blood({8})",
+                "UC_CHARACTER_ADD_REQ Name({0}) Race({1}) Class({2}) Gender({3})",
                 iPkt.Name,
                 ((CharRaces)iPkt.Race).ToString(),
                 ((CharClasses)iPkt.Class).ToString(),
-                ((CharGenders)iPkt.Gender).ToString(),
-                iPkt.Face,
-                iPkt.Hair,
-                iPkt.HairColor,
-                iPkt.SkinColor,
-                iPkt.Blood
+                ((CharGenders)iPkt.Gender).ToString()
             );
 
             var oPkt = new CU_CHARACTER_ADD_RES();
-            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SAMENAME_EXIST;
+            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
+            oPkt.CharID = (uint)(new Random().Next());
+            oPkt.Race = iPkt.Race;
+            oPkt.Class = iPkt.Class;
+            oPkt.Gender = iPkt.Gender;
+            oPkt.Name = iPkt.Name;
+            oPkt.Face = iPkt.Face;
+            oPkt.Hair = iPkt.Hair;
+            oPkt.HairColor = iPkt.HairColor;
+            oPkt.SkinColor = iPkt.SkinColor;
+            oPkt.Level = 1;
+            oPkt.WorldId = 1;
+            oPkt.WorldTblIndex = 1;
+            oPkt.PositionX = 2902.0f;
+            oPkt.PositionY = 0.0f;
+            oPkt.PositionZ = -2370.0f;
+            oPkt.Zenny = 0;
+            oPkt.ZennyBank = 0;
+            oPkt.BuildCharEquipaments(oPkt.CharID);
             oPkt.BuildPacket();
             this.Client.Send(oPkt.Data);
+        }
+
+        public void SendDisconnect(byte[] data)
+        {
+            var iPkt = new UC_CHARACTER_EXIT_REQ();
+            iPkt.SetData(data);
+
+            SysCons.LogInfo("UC_CHARACTER_EXIT_REQ IsGameMove({0})", iPkt.IsGameMove);
+
+            var oPkt = new CU_CHARACTER_EXIT_RES();
+            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
+            oPkt.BuildPacket();
+            this.Client.Send(oPkt.Data);
+        }
+
+        public void SendConnectWaitCheckResult(byte[] data)
+        {
+            var iPkt = new UC_CONNECT_WAIT_CHECK_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo("UC_CONNECT_WAIT_CHECK_REQ ChannelID({0})", iPkt.ChannelID);
+
+            ChannelID = iPkt.ChannelID;
+
+            var oPkt = new CU_CONNECT_WAIT_CHECK_RES();
+            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
+            oPkt.BuildPacket();
+            Client.Send(oPkt.Data);
+        }
+
+        public void SendConnectWaitCancelResult(byte[] data)
+        {
+            var iPkt = new UC_CONNECT_WAIT_CANCEL_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo("UC_CONNECT_WAIT_CANCEL_REQ ChannelID({0})", iPkt.ChannelID);
+
+            ChannelID = iPkt.ChannelID;
+
+            var oPkt = new CU_CONNECT_WAIT_CANCEL_RES();
+            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
+            oPkt.BuildPacket();
+            Client.Send(oPkt.Data);
+        }
+
+        public void SendCharacterSelectResult(byte[] data)
+        {
+            var iPkt = new UC_CHARACTER_SELECT_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo("UC_CHARACTER_SELECT_REQ ServerID({0}) CharID({1})", iPkt.ServerID, iPkt.CharID);
+            ServerID = iPkt.ServerID;
+            CharID = iPkt.CharID;
+
+            var oPkt = new CU_CHARACTER_SELECT_RES();
+            oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
+            oPkt.CharID = CharID;
+            oPkt.AuthKey = "AuthKey2016";
+            oPkt.GameServerIP = CharConfig.Instance.GetGameServerIP(ServerID, ChannelID);
+            oPkt.GameServerPort = CharConfig.Instance.GetGameServerPort(ServerID, ChannelID);
+            oPkt.BuildPacket();
+            Client.Send(oPkt.Data);
         }
     }
 }

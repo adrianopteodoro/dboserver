@@ -6,15 +6,27 @@ namespace CharServer.Configs
     public sealed class CharConfig : Config
     {
         public string BindIP { get { return this.GetString("BindIP", "0.0.0.0"); } set { this.Set("BindIP", value); } }
-        public int Port { get { return this.GetInt("Port", 6999); } set { this.Set("Port", value); } }
+        public int Port { get { return this.GetInt("Port", 50300); } set { this.Set("Port", value); } }
         public int GameServerCount { get { return this.GetInt("GameServerCount", 1); } set { this.Set("GameServerCount", value); } }
+
         public string GetGameServerName(int id)
         {
             return this.GetString(String.Format("GameServer{0}_Name", id), "[DBOSERVER]");
         }
+
         public int GetGameServerChannelCount(int id)
         {
             return this.GetInt(String.Format("GameServer{0}_ChannelCount", id), 1);
+        }
+
+        public string GetGameServerIP(byte ServerID, byte ChannelID)
+        {
+            return GetString(String.Format("GameServer{0}_Channel{1}_IP", ServerID, ChannelID), "127.0.0.1");
+        }
+
+        public ushort GetGameServerPort(byte ServerID, byte ChannelID)
+        {
+            return (ushort)GetInt(String.Format("GameServer{0}_Channel{1}_Port", ServerID, ChannelID), 50400);
         }
 
         private static readonly CharConfig _instance = new CharConfig();

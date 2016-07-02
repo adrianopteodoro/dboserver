@@ -22,13 +22,13 @@ namespace BaseLib
                 }
 
                 FileStream fs = new FileStream(path + filename, FileMode.OpenOrCreate);
-                if (pkt.Data.Length < pkt.Lenght)
+                if (pkt.Data.Length < (pkt.Lenght + 2))
                 {
                     fs.Write(pkt.Data, 0, pkt.Data.Length);
                 }
                 else
                 {
-                    fs.Write(pkt.Data, 0, pkt.Lenght);
+                    fs.Write(pkt.Data, 0, (pkt.Lenght + 2));
                 }
                 fs.Close();
             }
