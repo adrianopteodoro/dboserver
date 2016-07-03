@@ -1,7 +1,5 @@
-using System.Text;
 using BaseLib;
 using BaseLib.Network;
-using BaseLib.Packets;
 using AuthServer.Packets;
 using AuthServer.Database;
 
@@ -28,7 +26,7 @@ namespace AuthServer.Network
         
 		public AuthClient(IClient client)
 		{
-			this.Client = client;
+			Client = client;
 		}
 
         public void SendHandShakeRes()
@@ -36,42 +34,46 @@ namespace AuthServer.Network
             byte[] rawData = { 0x22, 0x00, 0x10, 0x00, 0x49, 0xD1, 0xF1, 0x1C, 0x6D, 0x58, 0xF9, 0xC5, 0x30, 0x26, 0xA4, 0x7B,
 			            0xB2, 0xD8, 0x2C, 0x86, 0x58, 0x60, 0x7B, 0xDD, 0xF0, 0x77, 0xCF, 0x25, 0x48, 0xB3, 0x65, 0x45,
 			            0x38, 0x80, 0x14, 0x72 };
-            this.Client.Send(rawData);
+            Client.Send(rawData);
         }
 
         public void SendLoginDisconnectResponse()
         {
-            Packet sPkt = new Packet();
-            sPkt.Opcode = 1004;
-            sPkt.BuildPacket();
-            this.Client.Send(sPkt.Data);
+            using (var oPkt = new AU_LOGIN_DISCONNECT_RES())
+            {
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
         }
 
         public void SendLoginResponse(byte[] data)
         {
-            Packet oPkt = new Packet();
-            oPkt.Opcode = 1005;
-            oPkt.BuildPacket();
-            this.Client.Send(oPkt.Data);
+            var iPkt = new UA_LOGIN_REQ();
+            iPkt.SetData(data);
+            SysCons.LogInfo("UA_LOGIN_REQ UserID({0}) CodePage({1}) Version({2}.{3})", iPkt.UserID, iPkt.CodePage, iPkt.MajorVer, iPkt.MinorVer);
+            Username = iPkt.UserID;
+            Password = iPkt.UserPW;
+            AccountID = (uint)AuthDB.GetAccountID(Username);
 
-            UA_LOGIN_REQ inPkt = new UA_LOGIN_REQ();
-            inPkt.SetData(data);
-            SysCons.LogInfo("UA_LOGIN_REQ {0} CodePage({1}) {2}.{3}", inPkt.UserID, inPkt.CodePage, inPkt.MajorVer, inPkt.MinorVer);
-            this.Username = inPkt.UserID;
-            this.Password = inPkt.UserPW;
-            this.AccountID = (uint)AuthDB.GetAccountID(this.Username);
+            using (var oPkt = new AU_COMMERCIAL_SETTING_NFY())
+            {
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
 
-            AU_LOGIN_RES sPkt = new AU_LOGIN_RES();
-            sPkt.UserID = inPkt.UserID;
-            sPkt.AccountID = this.AccountID;
-            sPkt.AllowedFunctionForDeveloper = 65535;
-            sPkt.AuthKey = Encoding.ASCII.GetBytes("SE@WASDE#$RFWD@D");
-            sPkt.ResultCode = (ushort)AuthDB.CheckAccount(this.Username, this.Password);
-            sPkt.lastServerID = 255;
-            sPkt.lastChannelID = 255;
-            sPkt.BuildCharServerList();
-            sPkt.BuildPacket();
-            this.Client.Send(sPkt.Data);
+            using (var oPkt = new AU_LOGIN_RES())
+            {
+                oPkt.UserID = iPkt.UserID;
+                oPkt.AccountID = AccountID;
+                oPkt.AllowedFunctionForDeveloper = 65535;
+                oPkt.AuthKey = "SE@WASDE#$RFWD@D";
+                oPkt.ResultCode = (ushort)AuthDB.CheckAccount(this.Username, this.Password);
+                oPkt.lastServerID = 255;
+                oPkt.lastChannelID = 255;
+                oPkt.BuildCharServerList();
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
         }
 	}
 }

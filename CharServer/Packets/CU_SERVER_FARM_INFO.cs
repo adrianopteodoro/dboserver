@@ -6,42 +6,42 @@ namespace CharServer.Packets
     {
         public CU_SERVER_FARM_INFO()
         {
-            this.Opcode = (ushort)PacketOpcodes.CU_SERVER_FARM_INFO;
-            this.ServerID = 0;
-            this.ServerName = "";
-            this.ServerStatus = 0;
-            this.MaxLoad = 0;
-            this.Load = 0;
+            Opcode = (ushort)PacketOpcodes.CU_SERVER_FARM_INFO;
+            ServerID = 0;
+            ServerName = "";
+            ServerStatus = 0;
+            MaxLoad = 0;
+            Load = 0;
         }
 
         public byte ServerID
         {
-            get { return this.GetByte(4); }
-            set { this.SetByte(4, value); }
+            get { return GetByte(4); }
+            set { SetByte(4, value); }
         }
 
         public string ServerName
         {
-            get { return this.GetString(5, 66); }
-            set { this.SetString(5, value, 66); }
+            get { return GetString(5, 66); }
+            set { SetString(5, value, 66); }
         }
 
         public byte ServerStatus
         {
-            get { return this.GetByte(71); }
-            set { this.SetByte(71, value); }
+            get { return GetByte(71); }
+            set { SetByte(71, value); }
         }
 
         public uint MaxLoad
         {
-            get { return this.GetInt(72); }
-            set { this.SetInt(72, value); }
+            get { return GetInt(72); }
+            set { SetInt(72, value); }
         }
 
         public uint Load
         {
-            get { return this.GetInt(76); }
-            set { this.SetInt(76, value); }
+            get { return GetInt(76); }
+            set { SetInt(76, value); }
         }
     }
 }

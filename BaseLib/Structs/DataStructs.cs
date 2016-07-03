@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
-
+﻿
 namespace BaseLib.Structs
 {
+    public class Definitions
+    {
+        public static readonly byte MAXCHARSLOTS = 8;
+        public static readonly uint INVALID_INT = 0xFFFFFFFF;
+        public static readonly ushort INVALID_SHORT = 0xFFFF;
+        public static readonly byte INVALID_BYTE = 0xFF;
+    }
+
     public enum CharRaces : byte
     {
         HUMAN,

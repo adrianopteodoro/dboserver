@@ -6,12 +6,12 @@ namespace CharServer.Packets
     {
         public uint AccountID
         {
-            get { return this.GetInt(4); }
+            get { return GetInt(4); }
         }
 
         public byte ServerID
         {
-            get { return this.GetByte(8); }
+            get { return GetByte(8); }
         }
     }
 }

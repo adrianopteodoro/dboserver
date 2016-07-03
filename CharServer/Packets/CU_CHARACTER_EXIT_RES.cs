@@ -13,8 +13,8 @@ namespace CharServer.Packets
 
         public ushort ResultCode
         {
-            get { return this.GetShort(4); }
-            set { this.SetShort(4, value); }
+            get { return GetShort(4); }
+            set { SetShort(4, value); }
         }
     }
 }

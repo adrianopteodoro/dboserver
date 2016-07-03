@@ -12,7 +12,7 @@ namespace CharServer.Packets
 
         public void CheckPacket(byte[] data, CharClient client)
         {
-            this.pkt = new Packet();
+            pkt = new Packet();
             pkt.SetData(data);
             this.client = client;
 

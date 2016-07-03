@@ -1,7 +1,7 @@
-﻿using System;
-using BaseLib.Packets;
+﻿using BaseLib.Packets;
 using BaseLib.Structs;
 using CharServer.Database;
+using System;
 
 namespace CharServer.Packets
 {
@@ -11,8 +11,8 @@ namespace CharServer.Packets
         {
             Opcode = (ushort)PacketOpcodes.CU_CHARACTER_ADD_RES;
             ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
-            GuildID = MarkingCode = MapInfoIndex = 4294967295;
-            DogiType = GuildColor = DojoColor = Unknow3 = Unknow4 = Unknow5 = Unknow6 = Unknow7 = Unknow8 = 255;
+            GuildID = MarkingCode = MapInfoIndex = Definitions.INVALID_INT;
+            DogiType = GuildColor = DojoColor = Unknow3 = Unknow4 = Unknow5 = Unknow6 = Unknow7 = Unknow8 = Definitions.INVALID_BYTE;
             Unknow1 = Unknow2 = Unknow9 = 0;
         }
 
@@ -48,8 +48,8 @@ namespace CharServer.Packets
 
         public bool IsAdult
         {
-            get { return Convert.ToBoolean(GetByte(46)); }
-            set { SetByte(46, Convert.ToByte(value)); }
+            get { return GetBool(46); }
+            set { SetBool(46, value); }
         }
 
         public byte Gender
@@ -143,14 +143,14 @@ namespace CharServer.Packets
                 {
                     foreach (var e in charEquips)
                     {
-                        if (e["Slot"].Equals(i))
+                        if (Convert.ToInt32(e["Slot"]) == i)
                         {
                             // If Slot X is found in DB get data and set boolean
                             found = true;
-                            SetInt(81 + (i * 7), (uint)e["ItemID"]);
-                            SetByte(85 + (i * 7), (byte)e["Rank"]);
-                            SetByte(86 + (i * 7), (byte)e["Grade"]);
-                            SetByte(87 + (i * 7), (byte)e["BattleAttribute"]);
+                            SetInt(81 + (i * 7), Convert.ToUInt32(e["ItemID"]));
+                            SetByte(85 + (i * 7), Convert.ToByte(e["Rank"]));
+                            SetByte(86 + (i * 7), Convert.ToByte(e["Grade"]));
+                            SetByte(87 + (i * 7), Convert.ToByte(e["BattleAttribute"]));
                         }
                     }
                 }
@@ -158,10 +158,10 @@ namespace CharServer.Packets
                 if (!found)
                 {
                     // If Slot X is not found in DB fill with INVALID
-                    SetInt(81 + (i * 7), 4294967295);
-                    SetByte(85 + (i * 7), 255);
-                    SetByte(86 + (i * 7), 255);
-                    SetByte(87 + (i * 7), 255);
+                    SetInt(81 + (i * 7), Definitions.INVALID_INT);
+                    SetByte(85 + (i * 7), Definitions.INVALID_BYTE);
+                    SetByte(86 + (i * 7), Definitions.INVALID_BYTE);
+                    SetByte(87 + (i * 7), Definitions.INVALID_BYTE);
                 }
             }
         }
@@ -174,8 +174,8 @@ namespace CharServer.Packets
 
         public bool IsTutorial
         {
-            get { return Convert.ToBoolean(GetByte(204)); }
-            set { SetByte(204, Convert.ToByte(value)); }
+            get { return GetBool(204); }
+            set { SetBool(204, value); }
         }
 
         public uint MarkingCode
@@ -186,8 +186,8 @@ namespace CharServer.Packets
 
         public bool IsNeedNameChange
         {
-            get { return Convert.ToBoolean(GetByte(209)); }
-            set { SetByte(209, Convert.ToByte(value)); }
+            get { return GetBool(209); }
+            set { SetBool(209, value); }
         }
 
         public uint GuildID

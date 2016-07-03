@@ -6,37 +6,37 @@ namespace AuthServer.Packets
     {
         public string UserID
         {
-            get { return this.GetString(4, 34); }
+            get { return GetString(4, 34); }
         }
 
         public string UserPW
         {
-            get { return this.GetString(38, 34); }
+            get { return GetString(38, 34); }
         }
 
         public uint CodePage
         {
-            get { return this.GetInt(72); }
+            get { return GetInt(72); }
         }
 
         public ushort MajorVer
         {
-            get { return this.GetShort(76); }
+            get { return GetShort(76); }
         }
 
         public ushort MinorVer
         {
-            get { return this.GetShort(78); }
+            get { return GetShort(78); }
         }
 
         public byte[] MacAddress
         {
-            get { return this.GetBytes(80, 6); }
+            get { return GetBytes(80, 6); }
         }
 
         public byte Unknow
         {
-            get { return this.GetByte(86); }
+            get { return GetByte(86); }
         }
     }
 }

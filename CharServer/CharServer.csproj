@@ -52,6 +52,7 @@
     <Compile Include="Network\CharClient.cs" />
     <Compile Include="Network\CharServer.cs" />
     <Compile Include="Packets\CU_CHARACTER_ADD_RES.cs" />
+    <Compile Include="Packets\CU_CHARACTER_INFO.cs" />
     <Compile Include="Packets\CU_CHARACTER_SELECT_RES.cs" />
     <Compile Include="Packets\CU_CONNECT_WAIT_CANCEL_RES.cs" />
     <Compile Include="Packets\CU_CONNECT_WAIT_COUNT_NFY.cs" />

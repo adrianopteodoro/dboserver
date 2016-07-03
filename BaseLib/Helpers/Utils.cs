@@ -9,6 +9,13 @@ namespace BaseLib.Helpers
 {
     public class Utils
     {
+        private static readonly DateTime REFERENCE = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        public static ulong GetTimestamp(DateTime dt)
+        {
+            return Convert.ToUInt64((dt - REFERENCE).TotalSeconds);
+        }
+
         public static Random Rand = new Random();
 
         public static uint GetModel(uint Model)

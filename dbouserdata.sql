@@ -30,7 +30,7 @@ CREATE TABLE `accounts` (
   `LastChannelID` int(11) NOT NULL DEFAULT '255',
   PRIMARY KEY (`AccountID`),
   UNIQUE KEY `AccountID_UNIQUE` (`AccountID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `characters` */
 
@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `characters`;
 CREATE TABLE `characters` (
   `CharacterID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `AccountID` bigint(20) unsigned NOT NULL,
-  `GuildID` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `GuildID` bigint(20) unsigned NOT NULL,
   `Name` varchar(20) NOT NULL,
   `ServerID` int(10) unsigned NOT NULL,
   `RaceID` int(10) unsigned NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `characters` (
   `SkinColorID` int(10) unsigned NOT NULL,
   `CurrentLevel` int(10) unsigned NOT NULL DEFAULT '1',
   `CurrentExp` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `MapInfoID` bigint(20) unsigned NOT NULL DEFAULT '200101000',
+  `MapInfoID` bigint(20) unsigned NOT NULL DEFAULT '4294967295',
   `WorldTableID` bigint(20) unsigned NOT NULL DEFAULT '1',
   `WorldID` bigint(20) unsigned NOT NULL DEFAULT '1',
   `BindType` int(10) unsigned NOT NULL DEFAULT '0',
@@ -78,14 +78,10 @@ CREATE TABLE `characters` (
   `SkillPoints` int(10) unsigned NOT NULL DEFAULT '0',
   `createdAt` timestamp NULL DEFAULT NULL,
   `deletionStartedAt` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`CharacterID`,`AccountID`,`GuildID`),
+  PRIMARY KEY (`CharacterID`),
   UNIQUE KEY `CharacterID_UNIQUE` (`CharacterID`),
-  UNIQUE KEY `Name_UNIQUE` (`Name`),
-  KEY `fk_Characters_Accounts_idx` (`AccountID`),
-  KEY `fk_Characters_Guilds_idx` (`GuildID`),
-  CONSTRAINT `fk_Characters_Accounts` FOREIGN KEY (`AccountID`) REFERENCES `accounts` (`AccountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Characters_Guilds` FOREIGN KEY (`GuildID`) REFERENCES `guilds` (`GuildID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `Name_UNIQUE` (`Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `guilds` */
 
@@ -99,6 +95,34 @@ CREATE TABLE `guilds` (
   UNIQUE KEY `Name_UNIQUE` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Table structure for table `inventories` */
+
+DROP TABLE IF EXISTS `inventories`;
+
+CREATE TABLE `inventories` (
+  `InventoryID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `CharacterID` bigint(20) unsigned NOT NULL,
+  `ItemSerial` bigint(20) unsigned NOT NULL,
+  `ItemID` bigint(20) unsigned NOT NULL,
+  `Place` int(10) unsigned NOT NULL,
+  `Slot` int(10) unsigned NOT NULL,
+  `StackCount` int(10) unsigned DEFAULT '1',
+  `Rank` int(10) unsigned DEFAULT '0',
+  `Grade` int(10) unsigned DEFAULT '0',
+  `BattleAttribute` int(10) unsigned DEFAULT '0',
+  `CurrentDurability` int(10) unsigned DEFAULT '100',
+  `NeedToIdentify` tinyint(1) DEFAULT '0',
+  `RestrictType` int(10) unsigned DEFAULT '0',
+  `DurationType` int(10) unsigned DEFAULT '0',
+  `Option1` bigint(20) unsigned DEFAULT '4294967295',
+  `Option2` bigint(20) unsigned DEFAULT '4294967295',
+  `MakerName` varchar(20) DEFAULT '',
+  `UseStartTime` timestamp NULL DEFAULT NULL,
+  `UseEndTime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`InventoryID`),
+  UNIQUE KEY `InventoryID_UNIQUE` (`InventoryID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
 /* Procedure structure for procedure `checkCharacterName` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `checkCharacterName` */;
@@ -107,7 +131,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`dboserver`@`%` PROCEDURE `checkCharacterName`(IN inName VARCHAR(20))
 BEGIN
-	DECLARE isInUse BOOlean;
+	DECLARE isInUse BOOL;
 	DECLARE ResultCount INT;
 	
 	SELECT COUNT(*) INTO ResultCount FROM `characters` WHERE `Name` = inName;
@@ -157,6 +181,46 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `getAccountCharacters` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getAccountCharacters` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAccountCharacters`(IN AccID BIGINT, IN SrvID INT)
+BEGIN
+	SELECT 
+	`CharacterID`, 
+	`Name`,  
+	`RaceID`, 
+	`ClassID`, 
+	`GenderID`, 
+	`FaceID`, 
+	`HairID`, 
+	`HairColorID`, 
+	`SkinColorID`, 
+	`CurrentLevel`,  
+	`MapInfoID`, 
+	`WorldTableID`, 
+	`WorldID`,   
+	`Position_X`, 
+	`Position_Y`, 
+	`Position_Z`, 
+	`ZennyInventory`, 
+	`ZennyBank`,
+	`IsAdult`,
+	`GuildID`,
+	`IsTutorialDone`, 
+	`IsToRename`,
+	`Marking`	 
+	FROM 
+	`characters` 
+	WHERE `AccountID` = AccID AND `ServerID` = SrvID
+	ORDER BY `CharacterID` asc
+	LIMIT 8;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `getAccountID` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `getAccountID` */;
@@ -169,6 +233,21 @@ BEGIN
     SET dbAccountID = 0;
 	SELECT `AccountID` INTO dbAccountID FROM `Accounts` WHERE `UserName` = inUser;
 	SELECT dbAccountID;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getCharacterEquipment` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getCharacterEquipment` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getCharacterEquipment`(IN CharID BIGINT)
+BEGIN
+	SELECT `Slot`,`ItemID`,`Rank`,`Grade`,`BattleAttribute`
+	FROM `inventories`
+	WHERE `CharacterID` = CharID AND `Place` = 7
+	ORDER BY `Slot` ASC;
 END */$$
 DELIMITER ;
 

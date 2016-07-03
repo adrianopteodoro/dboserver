@@ -25,13 +25,13 @@ namespace CharServer.Packets
 
         public string AuthKey
         {
-            get { return GetAsciiString(10); }
+            get { return GetAsciiString(10, 16); }
             set { SetAsciiString(10, value); }
         }
 
         public string GameServerIP
         {
-            get { return GetAsciiString(26); }
+            get { return GetAsciiString(26, 65); }
             set { SetAsciiString(26, value); }
         }
 

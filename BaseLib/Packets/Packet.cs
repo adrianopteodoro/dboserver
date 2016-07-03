@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace BaseLib.Packets
 {
@@ -103,6 +99,20 @@ namespace BaseLib.Packets
             data.Write(BitConverter.GetBytes(value), 0, 4);
         }
 
+        public ulong GetLong(int position)
+        {
+            byte[] buf = new byte[8];
+            data.Seek(position, SeekOrigin.Begin);
+            data.Read(buf, 0, 8);
+            return BitConverter.ToUInt64(buf, 0);
+        }
+
+        public void SetLong(int position, ulong value)
+        {
+            data.Seek(position, SeekOrigin.Begin);
+            data.Write(BitConverter.GetBytes(value), 0, 8);
+        }
+
         public float GetFloat(int position)
         {
             byte[] buf = new byte[4];
@@ -127,6 +137,11 @@ namespace BaseLib.Packets
             return splits[0];
         }
 
+        public bool GetBool(int position)
+        {
+            return Convert.ToBoolean(GetByte(position));
+        }
+
         public void SetString(int position, string text, int size)
         {
             data.Seek(position, SeekOrigin.Begin);
@@ -134,10 +149,9 @@ namespace BaseLib.Packets
             data.Write(strData, 0, strData.Length);
         }
 
-        public string GetAsciiString(int position)
+        public string GetAsciiString(int position, int size)
         {
             data.Seek(position, SeekOrigin.Begin);
-            int size = data.ReadByte();
             byte[] strData = new byte[size];
             data.Read(strData, 0, size);
             return Encoding.ASCII.GetString(strData).Trim();
@@ -148,6 +162,11 @@ namespace BaseLib.Packets
             data.Seek(position, SeekOrigin.Begin);
             byte[] strData = Encoding.ASCII.GetBytes(text);
             data.Write(strData, 0, strData.Length);
+        }
+
+        public void SetBool(int position, bool value)
+        {
+            SetByte(position, Convert.ToByte(value));
         }
 
         public void SetBytes(int position, byte[] buf)

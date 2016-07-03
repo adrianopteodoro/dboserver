@@ -1,5 +1,6 @@
 ﻿using BaseLib.Packets;
 using AuthServer.Configs;
+using BaseLib.Structs;
 
 namespace AuthServer.Packets
 {
@@ -7,79 +8,79 @@ namespace AuthServer.Packets
     {
         public AU_LOGIN_RES()
         {
-            this.Opcode = (ushort)PacketOpcodes.AU_LOGIN_RES;
-            this.ResultCode = 0;
-            this.UserID = "";
-            this.AuthKey = new byte[16];
-            this.AccountID = 0;
-            this.lastServerID = 255;
-            this.lastChannelID = 255;
-            this.AllowedFunctionForDeveloper = 0;
-            this.CharServerCount = 0;
+            Opcode = (ushort)PacketOpcodes.AU_LOGIN_RES;
+            ResultCode = (ushort)ResultCodes.AUTH_SUCCESS;
+            UserID = "";
+            AuthKey = "0123456789ABCDEF";
+            AccountID = 0;
+            lastServerID = 255;
+            lastChannelID = 255;
+            AllowedFunctionForDeveloper = 0;
+            CharServerCount = 0;
         }
         public ushort ResultCode
         {
-            get { return this.GetShort(4); }
-            set { this.SetShort(4, value); }
+            get { return GetShort(4); }
+            set { SetShort(4, value); }
         }
 
         public string UserID
         {
-            get { return this.GetString(6, 34); }
-            set { this.SetString(6, value, 34); }
+            get { return GetString(6, 34); }
+            set { SetString(6, value, 34); }
         }
 
-        public byte[] AuthKey
+        public string AuthKey
         {
-            get { return this.GetBytes(40, 16); }
-            set { this.SetBytes(40, value, 16); }
+            get { return GetAsciiString(40, 16); }
+            set { SetAsciiString(40, value); }
         }
 
         public uint AccountID
         {
-            get { return this.GetInt(56); }
-            set { this.SetInt(56, value); }
+            get { return GetInt(56); }
+            set { SetInt(56, value); }
         }
 
         public byte lastServerID
         {
-            get { return this.GetByte(60); }
-            set { this.SetByte(60, value); }
+            get { return GetByte(60); }
+            set { SetByte(60, value); }
         }
 
         public byte lastChannelID
         {
-            get { return this.GetByte(61); }
-            set { this.SetByte(61, value); }
+            get { return GetByte(61); }
+            set { SetByte(61, value); }
         }
 
         public uint AllowedFunctionForDeveloper
         {
-            get { return this.GetInt(62); }
-            set { this.SetInt(62, value); }
+            get { return GetInt(62); }
+            set { SetInt(62, value); }
         }
 
         public byte CharServerCount
         {
-            get { return this.GetByte(66); }
-            set { this.SetByte(66, value); }
+            get { return GetByte(66); }
+            set { SetByte(66, value); }
         }
 
         public void BuildCharServerList()
         {
-            this.CharServerCount = (byte)AuthConfig.Instance.CharServerCount;
-            for (int i = 0; i < this.CharServerCount; i++)
+            CharServerCount = (byte)AuthConfig.Instance.CharServerCount;
+            for (int i = 0; i < CharServerCount; i++)
             {
                 int srvid = i + 1;
                 var dip = AuthConfig.Instance.GetCharServerAddress(srvid);
 
-                this.SetAsciiString(67 + (i * 73), dip.Value);
+                SetAsciiString(67 + (i * 73), dip.Value);
                 // Char Server Port
-                this.SetShort(132 + (i * 73), (ushort)dip.Key);
+                SetShort(132 + (i * 73), (ushort)dip.Key);
                 // Char Server Load
-                this.SetInt(134 + (i * 73), 0);
+                SetInt(134 + (i * 73), 0);
                 // Unknow
-                this.SetShort(138 + (i * 73), 65535);
+                SetShort(138 + (i * 73), 65535);
             }
         }
     }

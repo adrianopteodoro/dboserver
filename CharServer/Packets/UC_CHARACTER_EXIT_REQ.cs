@@ -8,7 +8,7 @@ namespace CharServer.Packets
     {
         public bool IsGameMove
         {
-            get { return Convert.ToBoolean(GetByte(4)); }
+            get { return GetBool(4); }
         }
     }
 }

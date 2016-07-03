@@ -63,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packets\AU_COMMERCIAL_SETTING_NFY.cs" />
+    <Compile Include="Packets\AU_LOGIN_DISCONNECT_RES.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Config\AuthConfig.cs" />
     <Compile Include="Database\AuthDB.cs" />

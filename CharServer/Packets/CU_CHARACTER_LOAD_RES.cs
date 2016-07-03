@@ -16,26 +16,26 @@ namespace CharServer.Packets
 
         public ushort ResultCode
         {
-            get { return this.GetShort(4); }
-            set { this.SetShort(4, value); }
+            get { return GetShort(4); }
+            set { SetShort(4, value); }
         }
 
         public byte ServerID
         {
-            get { return this.GetByte(6); }
-            set { this.SetByte(6, value); }
+            get { return GetByte(6); }
+            set { SetByte(6, value); }
         }
 
         public byte OpenCharSlots
         {
-            get { return this.GetByte(7); }
-            set { this.SetByte(7, value); }
+            get { return GetByte(7); }
+            set { SetByte(7, value); }
         }
 
         public byte VIPCharSlots
         {
-            get { return this.GetByte(8); }
-            set { this.SetByte(8, value); }
+            get { return GetByte(8); }
+            set { SetByte(8, value); }
         }
     }
 }
