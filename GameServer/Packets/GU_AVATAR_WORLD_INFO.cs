@@ -16,8 +16,8 @@ namespace GameServer.Packets
             sVECTOR3 vCurDir = new sVECTOR3(0, 0, 0);
             sGAME_RULE_INFO worldInfo;
             Byte            byDojoCount;
-            
-            sDBO_DOJO_BRIEF sDojoData[] = new sDBO_DOJO_BRIEF[DBOCommon.DBO_DOJO_IN_WORLD_MAX];
+
+            sDBO_DOJO_BRIEF[] sDojoData;// = new sDBO_DOJO_BRIEF[DBOCommon.DBO_DOJO_IN_WORLD_MAX];
 
         }
 
