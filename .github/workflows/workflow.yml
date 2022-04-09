@@ -5,9 +5,6 @@ on:
     paths-ignore:
       - "**.md"
   push:
-    branches:
-      - main
-      - releases/*
     paths-ignore:
       - "**.md"
 
@@ -32,9 +29,9 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build --verbosity normal --filter "Category!=LongRunning"
       - name: Publish
-        run: dotnet publish -c Release -o artifact
+        run: dotnet publish -c Release -o artifact-${{ matrix.operating-system }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: Artifacts
-          path: ./artifact/
+          name: build-${{ matrix.operating-system }}
+          path: ./artifact-${{ matrix.operating-system }}/
