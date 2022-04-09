@@ -54,6 +54,8 @@ namespace AuthServer.Network
             Username = iPkt.UserID;
             Password = iPkt.UserPW;
             AccountID = (uint)AuthDB.GetAccountID(Username);
+            (int lastServerID, int lastChannelID) = AuthDB.GetLastConnInfo(AccountID);
+            SysCons.LogInfo("AuthDB.GetLastConnInfo({0}) = ({1}, {2})", AccountID, lastServerID, lastChannelID);
 
             using (var oPkt = new AU_COMMERCIAL_SETTING_NFY())
             {
@@ -68,8 +70,8 @@ namespace AuthServer.Network
                 oPkt.AllowedFunctionForDeveloper = 65535;
                 oPkt.AuthKey = "SE@WASDE#$RFWD@D";
                 oPkt.ResultCode = (ushort)AuthDB.CheckAccount(this.Username, this.Password);
-                oPkt.lastServerID = 255;
-                oPkt.lastChannelID = 255;
+                oPkt.lastServerID = (byte)lastServerID;
+                oPkt.lastChannelID = (byte)lastChannelID;
                 oPkt.BuildCharServerList();
                 oPkt.BuildPacket();
                 Client.Send(oPkt.Data);

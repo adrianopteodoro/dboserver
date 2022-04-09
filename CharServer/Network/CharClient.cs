@@ -5,6 +5,7 @@ using BaseLib.Network;
 using BaseLib.Entities;
 using CharServer.Packets;
 using CharServer.Configs;
+using CharServer.Database;
 using BaseLib.Structs;
 
 namespace CharServer.Network
@@ -52,6 +53,8 @@ namespace CharServer.Network
             AccountID = iPkt.AccountID;
             ServerID = iPkt.ServerID;
             AuthKey = iPkt.AuthKey;
+
+            CharDB.SetLastServerID(AccountID, ServerID);
 
             using (var oPkt = new CU_LOGIN_RES())
             {
@@ -105,6 +108,8 @@ namespace CharServer.Network
 
             AccountID = iPkt.AccountID;
             ServerID = iPkt.ServerID;
+
+            CharDB.SetLastServerID(AccountID, ServerID);
 
             using (var oPkt = new CU_SERVER_CHANNEL_INFO())
             {
@@ -190,6 +195,8 @@ namespace CharServer.Network
 
             ChannelID = iPkt.ChannelID;
 
+            CharDB.SetLastChannelID(AccountID, ChannelID);
+
             using (var oPkt = new CU_CONNECT_WAIT_CHECK_RES())
             {
                 oPkt.ResultCode = (ushort)ResultCodes.CHARACTER_SUCCESS;
@@ -205,6 +212,8 @@ namespace CharServer.Network
             SysCons.LogInfo("UC_CONNECT_WAIT_CANCEL_REQ ChannelID({0})", iPkt.ChannelID);
 
             ChannelID = iPkt.ChannelID;
+
+            CharDB.SetLastChannelID(AccountID, ChannelID);
 
             using (var oPkt = new CU_CONNECT_WAIT_CANCEL_RES())
             {

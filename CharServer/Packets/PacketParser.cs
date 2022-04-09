@@ -29,6 +29,7 @@ namespace CharServer.Packets
                 case PacketOpcodes.UC_CONNECT_WAIT_CANCEL_REQ: client.SendConnectWaitCancelResult(data); break;
                 case PacketOpcodes.UC_CONNECT_WAIT_CHECK_REQ: client.SendConnectWaitCheckResult(data); break;
                 case PacketOpcodes.UC_CHARACTER_SELECT_REQ: client.SendCharacterSelectResult(data); break;
+                case PacketOpcodes.UC_CHAR_SERVERLIST_REQ: client.SendServerList(false); break;
                 default: PacketDefinitions.LogPacketData(pkt); break;
             }
         }
