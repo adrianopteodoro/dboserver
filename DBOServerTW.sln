@@ -1,28 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer", "AuthServer\AuthServer.csproj", "{0C50478F-5CF4-40FD-9862-E903ADAB27F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "AuthServer\AuthServer.csproj", "{0C50478F-5CF4-40FD-9862-E903ADAB27F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{011A6ABC-0115-4284-8A8D-CE40E681F883} = {011A6ABC-0115-4284-8A8D-CE40E681F883}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseLib", "BaseLib\BaseLib.csproj", "{011A6ABC-0115-4284-8A8D-CE40E681F883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseLib", "BaseLib\BaseLib.csproj", "{011A6ABC-0115-4284-8A8D-CE40E681F883}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\GameServer.csproj", "{4FD72097-8280-4515-9780-8E61D1B5B614}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\GameServer.csproj", "{4FD72097-8280-4515-9780-8E61D1B5B614}"
 	ProjectSection(ProjectDependencies) = postProject
 		{011A6ABC-0115-4284-8A8D-CE40E681F883} = {011A6ABC-0115-4284-8A8D-CE40E681F883}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{C55BE1D2-307F-4462-A5E1-E5EDC272C678}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharServer", "CharServer\CharServer.csproj", "{CC071B08-19C0-4B60-8929-96AC3A5C60A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CharServer", "CharServer\CharServer.csproj", "{CC071B08-19C0-4B60-8929-96AC3A5C60A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{011A6ABC-0115-4284-8A8D-CE40E681F883} = {011A6ABC-0115-4284-8A8D-CE40E681F883}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityServer", "CommunityServer\CommunityServer.csproj", "{C92BF010-5A51-487C-BC3F-5309F7001D66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunityServer", "CommunityServer\CommunityServer.csproj", "{C92BF010-5A51-487C-BC3F-5309F7001D66}"
 	ProjectSection(ProjectDependencies) = postProject
 		{011A6ABC-0115-4284-8A8D-CE40E681F883} = {011A6ABC-0115-4284-8A8D-CE40E681F883}
 	EndProjectSection
@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -105,5 +106,8 @@ Global
 		{4FD72097-8280-4515-9780-8E61D1B5B614} = {C55BE1D2-307F-4462-A5E1-E5EDC272C678}
 		{CC071B08-19C0-4B60-8929-96AC3A5C60A1} = {C55BE1D2-307F-4462-A5E1-E5EDC272C678}
 		{C92BF010-5A51-487C-BC3F-5309F7001D66} = {C55BE1D2-307F-4462-A5E1-E5EDC272C678}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {704B9C12-1038-4F37-AD3C-310A5499D9E0}
 	EndGlobalSection
 EndGlobal
