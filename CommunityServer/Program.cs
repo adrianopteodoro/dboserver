@@ -52,7 +52,7 @@ namespace CommunityServer
 
             SysCons.LogInfo("Stopping CommunityServer..");
             Serv.Shutdown();
-            CommunityServerThread.Abort();
+            CommunityServerThread.Interrupt();
             Serv = null;
 
             return true;

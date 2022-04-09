@@ -52,7 +52,7 @@ namespace CharServer
 
             SysCons.LogInfo("Stopping CharServer..");
             Serv.Shutdown();
-            LobbyServerThread.Abort();
+            LobbyServerThread.Interrupt();
             Serv = null;
 
             return true;

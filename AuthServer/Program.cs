@@ -52,7 +52,7 @@ namespace AuthServer
 
             SysCons.LogInfo("Stopping AuthServer..");
             AuthServ.Shutdown();
-            AuthServThread.Abort();
+            AuthServThread.Interrupt();
             AuthServ = null;
 
             return true;

@@ -52,7 +52,7 @@ namespace GameServer
 
             SysCons.LogInfo("Stopping GameServer..");
             GServ.Shutdown();
-            GameServerThread.Abort();
+            GameServerThread.Interrupt();
             GServ = null;
 
             return true;
