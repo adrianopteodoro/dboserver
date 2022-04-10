@@ -47,6 +47,41 @@ namespace GameServer.Network
             Client.Send(rawData);
         }
 
+        public void SendAuthKeyCommunityServer(byte[] data) {
+            var iPkt = new UG_AUTH_KEY_FOR_COMMUNITY_SERVER_REQ();
+            iPkt.SetData(data);
+
+            using (var oPkt = new GU_AUTH_KEY_FOR_COMMUNITY_SERVER_RES())
+            {
+                oPkt.AuthKey = AuthKey;
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
+        }
+
+        public void SendEnterWorldComplete(byte[] data) {
+            var iPkt = new UG_ENTER_WORLD();
+            iPkt.SetData(data);
+
+            using (var oPkt = new GU_ENTER_WORLD_RES())
+            {
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
+
+            using (var oPkt = new GU_AVATAR_WORLD_INFO())
+            {
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
+
+            using (var oPkt = new GU_ENTER_WORLD_COMPLETE())
+            {
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
+            }
+        }
+
         public void SendGameEnterResult(byte[] data)
         {
             var iPkt = new UG_GAME_ENTER_REQ();
@@ -65,7 +100,14 @@ namespace GameServer.Network
                 oPkt.GameEnterTime = Utils.GetTimestamp(DateTime.Now);
                 oPkt.BuildPacket();
                 Client.Send(oPkt.Data);
-                SysCons.SavePacket(oPkt);
+            }
+
+            // TODO SEND CHARACTER AVATAR DATA (INFO, ITEMS, SKILLS, HTB, SLOT, WARFOG, BUFF, ETC)
+
+            using (var oPkt = new GU_AVATAR_INFO_END())
+            {
+                oPkt.BuildPacket();
+                Client.Send(oPkt.Data);
             }
         }
 	}

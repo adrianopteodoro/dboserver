@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using System.Numerics;
 
 namespace BaseLib.Packets
 {
@@ -146,6 +147,7 @@ namespace BaseLib.Packets
         {
             data.Seek(position, SeekOrigin.Begin);
             var strData = Encoding.Unicode.GetBytes(text);
+            Array.Resize(ref strData, size);
             data.Write(strData, 0, strData.Length);
         }
 
@@ -189,6 +191,18 @@ namespace BaseLib.Packets
             byte[] outData = new byte[size];
             data.Read(outData, 0, size);
             return outData;
+        }
+
+        public Vector3 GetVector3(int position)
+        {
+            return new Vector3(GetFloat(position), GetFloat(position + 4), GetFloat(position + 8));
+        }
+
+        public void SetVector3(int position, Vector3 value)
+        {
+            SetFloat(position, value.X);
+            SetFloat(position + 4, value.Y);
+            SetFloat(position + 8, value.Z);
         }
 
         /*

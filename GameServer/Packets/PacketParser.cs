@@ -22,6 +22,8 @@ namespace GameServer.Packets
                 case PacketOpcodes.SYS_ALIVE: /* TO SKIP LOGGING THIS PACKET */ break;
                 case PacketOpcodes.SYS_HANDSHAKE_RES: client.SendHandShakeRes(); break;
                 case PacketOpcodes.UG_GAME_ENTER_REQ: client.SendGameEnterResult(data); break;
+                case PacketOpcodes.UG_AUTH_KEY_FOR_COMMUNITY_SERVER_REQ: client.SendAuthKeyCommunityServer(data); break;
+                case PacketOpcodes.UG_ENTER_WORLD: client.SendEnterWorldComplete(data); break;
                 default:
                     PacketDefinitions.LogPacketData(pkt);
                     break;

@@ -20,6 +20,7 @@ namespace CommunityServer.Packets
             {
                 case PacketOpcodes.SYS_ALIVE: /* TO SKIP LOGGING THIS PACKET */ break;
                 case PacketOpcodes.SYS_HANDSHAKE_RES: client.SendHandShakeRes(); break;
+                case PacketOpcodes.UT_ENTER_CHAT: client.SendEnterChatResponse(data); break;
                 default:
                     PacketDefinitions.LogPacketData(pkt);
                     break;
